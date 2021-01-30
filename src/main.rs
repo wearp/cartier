@@ -1,9 +1,17 @@
 use std::io::{self, Write};
+use std::process::exit;
 
 fn main() {
     loop {
         let input = read_input();
-        println!("Your input: {}", input)
+
+        if input.as_str() == ".exit"{
+            exit(0);
+        } else if input.is_empty() == true {
+            continue;
+        } else {
+            print!("Unrecognised command '{}'.\n", input);
+        }
     }
 }
 
@@ -15,7 +23,10 @@ fn read_input() -> String {
 
     io::stdin()
     .read_line(&mut input)
-    .expect("Failed to read line");
+    .expect("Error reading input");
+
+    // ignore leading and trailing whitespace
+    input = input.trim().parse().unwrap();
 
     input
 }
