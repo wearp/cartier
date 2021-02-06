@@ -73,9 +73,6 @@ fn prepare_statement(input: &str) -> Result<Statement, &'static str> {
 fn execute_statement(statement: Statement) {
     match statement.statement_type {
         StatementType::SelectStatement => print!("This is where we would do a select.\n"),
-        StatementType::InsertStatement => print!(
-            "This is where we would do \
-        a insert.\n"
-        ),
+        StatementType::InsertStatement => print!("This is where we would do a insert.\n"),
     }
 }
