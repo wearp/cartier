@@ -26,6 +26,7 @@ fn main() {
             }
             continue;
         }
+
         let statement_result = prepare_statement(&input);
         match statement_result {
             Ok(statement) => execute_statement(statement),
@@ -59,13 +60,16 @@ fn execute_meta_command(input: &str) -> Result<MetaCommandResult, &'static str> 
 }
 
 fn prepare_statement(input: &str) -> Result<Statement, &'static str> {
-    match input {
-        "insert" => Ok(Statement {
-            statement_type: StatementType::InsertStatement,
-        }),
-        "select" => Ok(Statement {
-            statement_type: StatementType::SelectStatement,
-        }),
+    match input.len() as i32 {
+        len if len >= 6 => match &input[..6] {
+            "insert" => Ok(Statement {
+                statement_type: StatementType::InsertStatement,
+            }),
+            "select" => Ok(Statement {
+                statement_type: StatementType::SelectStatement,
+            }),
+            _ => Err("Invalid statement"),
+        },
         _ => Err("Invalid statement"),
     }
 }
